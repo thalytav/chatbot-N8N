@@ -134,7 +134,7 @@ $$;
 * **WORKFLOW 1**
   * Read Document List
     <img width="1705" height="933" alt="image" src="https://github.com/user-attachments/assets/2a30516a-17ab-4e97-ba76-de424b93c8f5" />
-    Edit Kredensial dengan cara masukkan Client ID dan Client Secret Anda (dapatkan Client ID dan Client Secret di Google Cloud Console)
+    Edit Kredensial dengan cara masukkan Client ID dan Client Secret Anda (dapatkan Client ID dan Client Secret di Google Cloud Console), lalu sign in with Google
     <img width="1244" height="803" alt="image" src="https://github.com/user-attachments/assets/57cb1145-99bf-4411-941f-8ac04eba4e58" />
 
 
@@ -144,7 +144,7 @@ $$;
     {{ $json["Link Drive (Real PDF)"].split('/d/')[1].split('/')[0] }}
     ```
     <img width="1710" height="936" alt="image" src="https://github.com/user-attachments/assets/730ad426-78e7-4fb9-908b-de785e32411a" />
-    Untuk kredensial, masukkan Client ID dan Client Secret yang sama seperti spreadsheet
+    Untuk kredensial, masukkan Client ID dan Client Secret yang sama seperti spreadsheet, jangan lupa sign in with Google
     <img width="623" height="403" alt="image" src="https://github.com/user-attachments/assets/34cbecac-009b-4b1d-ab4b-3c3639451630" />
 
     
