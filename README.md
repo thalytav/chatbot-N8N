@@ -139,6 +139,16 @@ $$;
 
 
   * Download PDF From Drive
+    Masukkan kode ini pada bagian file
+    ```
+    {{ $json["Link Drive (Real PDF)"].split('/d/')[1].split('/')[0] }}
+    ```
+    <img width="1710" height="936" alt="image" src="https://github.com/user-attachments/assets/730ad426-78e7-4fb9-908b-de785e32411a" />
+    Untuk kredensial, masukkan Client ID dan Client Secret yang sama seperti spreadsheet
+    <img width="623" height="403" alt="image" src="https://github.com/user-attachments/assets/34cbecac-009b-4b1d-ab4b-3c3639451630" />
+
+    
+
   * Prepare Gemini Payload
   * Gemini Flash OCR
   * Smart Chunking
