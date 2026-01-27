@@ -134,7 +134,9 @@ $$;
 * **WORKFLOW 1**
   * Read Document List
     <img width="1705" height="933" alt="image" src="https://github.com/user-attachments/assets/2a30516a-17ab-4e97-ba76-de424b93c8f5" />
-    
+    Edit Kredensial dengan cara masukkan Client ID dan Client Secret Anda (dapatkan Client ID dan Client Secret di Google Cloud Console)
+    <img width="1244" height="803" alt="image" src="https://github.com/user-attachments/assets/57cb1145-99bf-4411-941f-8ac04eba4e58" />
+
 
   * Download PDF From Drive
   * Prepare Gemini Payload
