@@ -120,6 +120,9 @@ $$;
 * Buka n8n.
 * Klik menu "Workflows" > "Import".
 * Upload file `CHATBOT N8N FILE READER.json`.
+<img width="1419" height="235" alt="image" src="https://github.com/user-attachments/assets/c3eaa1ce-89c2-4a6d-b423-b17c5333993f" />
+
+<img width="1471" height="658" alt="image" src="https://github.com/user-attachments/assets/ca57030f-4ead-4987-8e24-6e1928e177b9" />
 
 
 2. **Setup Credentials**:
