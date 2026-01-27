@@ -1,0 +1,817 @@
+{
+  "name": "CHATBOT N8N FILE READER",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "@devlikeapro/n8n-nodes-waha.wahaTrigger",
+      "typeVersion": 202502,
+      "position": [
+        -1376,
+        -48
+      ],
+      "id": "8f115379-8ec0-4cac-983d-31d7985fd511",
+      "name": "WAHA Trigger",
+      "webhookId": "02c9ea13-3891-4137-b0cc-d704af013892"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.payload.from }}",
+              "operation": "endsWith",
+              "value2": "@lid"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        -736,
+        -32
+      ],
+      "id": "1d0ea517-2e0b-45f4-80d3-bf8062d6bace",
+      "name": "Is LID?"
+    },
+    {
+      "parameters": {
+        "url": "=http://192.168.43.198:3000/api/{{ $json.session }}/lids/{{ encodeURIComponent($json.payload.from) }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        -496,
+        -256
+      ],
+      "id": "76e11828-decf-4cb1-91d3-eaee28e6d6a2",
+      "name": "Convert LID",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "NsDKU7WCaCP3gT3I",
+          "name": "Header Auth account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.all()[0].json;\nlet raw = '';\n\nif (input.data && input.data.user) {\n    raw = input.data.user;\n} else if (input.payload && input.payload.from) {\n    raw = input.payload.from;\n}\n\nlet clean = raw.replace(/\\D/g, '');\n\nif (clean.startsWith('0')) {\n    clean = '62' + clean.slice(1);\n}\n\nreturn { json: { final_number: clean } };"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -256,
+        -16
+      ],
+      "id": "1d944a3e-9edf-4208-8890-2dd11ff5c099",
+      "name": "Normalize Number"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1tAgXWTD9Up3wJP2weOA-Ov1uve1E75e1RlE-kabTJUI",
+          "mode": "list",
+          "cachedResultName": "NO.WA",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1tAgXWTD9Up3wJP2weOA-Ov1uve1E75e1RlE-kabTJUI/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 861091717,
+          "mode": "list",
+          "cachedResultName": "Sheet2",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1tAgXWTD9Up3wJP2weOA-Ov1uve1E75e1RlE-kabTJUI/edit#gid=861091717"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "WHATSAPP",
+              "lookupValue": "={{ $json.final_number }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.3,
+      "position": [
+        96,
+        -16
+      ],
+      "id": "c96c42e8-1ad8-4f53-b1c8-29045a8ffe98",
+      "name": "Check User Access",
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "7AZZZ4zr4PepbAtv",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "user-check",
+              "leftValue": "={{ $json.WHATSAPP }}",
+              "rightValue": "",
+              "operator": {
+                "type": "number",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        416,
+        -16
+      ],
+      "id": "9a97feb1-9aab-41ac-93ce-2e196044a96c",
+      "name": "User Authorized?"
+    },
+    {
+      "parameters": {
+        "resource": "Chatting",
+        "operation": "Send Text",
+        "session": "={{ $('WAHA Trigger').item.json.session }}",
+        "chatId": "={{ $('WAHA Trigger').item.json.payload.from }}",
+        "text": "Maaf, Nomor anda tidak terdaftar. Silakan lakukan pendaftaran.",
+        "requestOptions": {}
+      },
+      "type": "@devlikeapro/n8n-nodes-waha.WAHA",
+      "typeVersion": 202502,
+      "position": [
+        720,
+        336
+      ],
+      "id": "245aa3dd-3e5a-47ed-b59e-874be623d932",
+      "name": "Send Unauthorized Message",
+      "credentials": {
+        "wahaApi": {
+          "id": "xJuijWLPlgo0YEFu",
+          "name": "WAHA account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $('WAHA Trigger').item.json.payload.body }}",
+        "options": {
+          "systemMessage": "# IDENTITAS\nKamu adalah **Asisten Dokumentasi Internal** yang cerdas dan membantu. Tugasmu menjawab pertanyaan tentang dokumen perusahaan dengan akurat berdasarkan database.\n\n# CARA KERJA\n1. **Untuk pertanyaan tentang ISI/KONTEN dokumen**: \n   - WAJIB gunakan tool `Supabase Vector Store` terlebih dahulu\n   - Tool ini berisi teks lengkap dari semua PDF yang sudah di-scan\n   - Cari konteks, prosedur, penjelasan, atau aturan yang relevan\n\n2. **Untuk informasi METADATA dokumen**:\n   - Gunakan tool `Get Document Metadata` (Google Sheets)\n   - Dapatkan: Link PDF, Penanggung Jawab, Pendukung, Kode Dokumen\n\n3. **Kombinasi Optimal** (RECOMMENDED):\n   - Langkah 1: Cari jawaban di Vector Store\n   - Langkah 2: Ambil metadata dari Sheets untuk melengkapi info\n   - Langkah 3: Gabungkan menjadi jawaban komprehensif\n\n# ATURAN MENJAWAB\n✅ **WAJIB**:\n- Jawab dalam Bahasa Indonesia profesional tapi tetap ramah\n- SELALU sebutkan sumber: \"Berdasarkan **[Nama Dokumen]** (Kode: [Kode])...\"\n- Sertakan Link PDF asli dari Google Sheets di akhir jawaban\n- Jika ada PIC/Pendukung, sebutkan untuk info lebih lanjut\n\n❌ **DILARANG**:\n- Mengarang informasi yang tidak ada di database (ANTI-HALLUCINATION)\n- Memberikan jawaban tanpa mengecek tool terlebih dahulu\n- Mengabaikan metadata penting seperti link dokumen\n\n# FORMAT JAWABAN IDEAL\n```\n[Emoji] **Jawaban Singkat**\n\n[Penjelasan detail dari Vector Store dengan bullet points jika perlu]\n\n📄 **Info Dokumen:**\n- Nama: [Nama Dokumen]\n- Kode: [Kode]\n- Penanggung Jawab: [Penanggung Jawab]\n- Pendukung: [Pendukung]\n\n🔗 **Link PDF**: [Link dari Sheets]\n\n💡 Butuh info lebih lanjut? Hubungi [PIC] ya!\n```\n\n# HANDLING KHUSUS\n- **Jika tidak ditemukan di Vector Store**: \"Maaf, informasi spesifik tentang [topik] tidak ditemukan. Namun ada dokumen terkait: [list dengan link]\"\n- **Jika user tanya dokumen yang tidak ada**: Jujur katakan tidak ada, tawarkan dokumen serupa\n- **Jika pertanyaan ambigu**: Minta klarifikasi dengan sopan sambil tawarkan topik terkait\n- ** Jika user minta dokumen terkait divisi tertentu, kasih tau jumlahnya dulu di bagian header, baru list dokumen-dokumen yang terkait dengan divisi tersebut.\n\n# TIPS PENCARIAN\n- Gunakan keyword yang relevan saat query Vector Store\n- Jika hasil pertama kurang memuaskan, coba keyword alternatif\n- Untuk pertanyaan umum (\"ada apa aja?\"), list semua dokumen dari Sheets dengan kategori"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        720,
+        -368
+      ],
+      "id": "1a386047-a015-49eb-aa30-858cac8d94f4",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolDescription": "🔍 Gunakan tool ini untuk mencari ISI, KONTEN, PROSEDUR, atau PENJELASAN dari dokumen PDF. Database berisi teks lengkap hasil OCR/ekstraksi dari semua dokumen perusahaan.",
+        "tableName": {
+          "__rl": true,
+          "value": "documents",
+          "mode": "list"
+        },
+        "topK": 50,
+        "useReranker": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
+      "typeVersion": 1.3,
+      "position": [
+        1152,
+        -96
+      ],
+      "id": "0cd31e5e-78c2-43de-a369-37c3577eddda",
+      "name": "Supabase Vector Store",
+      "credentials": {
+        "supabaseApi": {
+          "id": "pdzBzCjR0ZPn37hE",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.embeddingsGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        1152,
+        240
+      ],
+      "id": "2b7e8d4a-b21d-4c6e-9c4d-2353a3a819e4",
+      "name": "Embeddings Google Gemini",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "wY8EXRCFDqOuWUtG",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.rerankerCohere",
+      "typeVersion": 1,
+      "position": [
+        1376,
+        240
+      ],
+      "id": "4256c1c3-21b5-48b4-96d5-6054f0edfbfb",
+      "name": "Reranker Cohere",
+      "credentials": {
+        "cohereApi": {
+          "id": "x4A416GaKkkLtnHF",
+          "name": "CohereApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('WAHA Trigger').item.json.payload.from }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+      "typeVersion": 1.3,
+      "position": [
+        816,
+        112
+      ],
+      "id": "f2a08c15-debc-41ca-aa3f-ef22c0aee1e2",
+      "name": "Chat Memory",
+      "credentials": {
+        "postgres": {
+          "id": "FvsNcSGDn8c57YqG",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1dmgBPr9unVa853tyTzsRQSk-i1Ps_i4WMN3ZSZhSWdY",
+          "mode": "list",
+          "cachedResultName": "pake sheet 2",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1dmgBPr9unVa853tyTzsRQSk-i1Ps_i4WMN3ZSZhSWdY/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1590216326,
+          "mode": "list",
+          "cachedResultName": "Sheet3",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1dmgBPr9unVa853tyTzsRQSk-i1Ps_i4WMN3ZSZhSWdY/edit#gid=1590216326"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        944,
+        -48
+      ],
+      "id": "174ea894-f77a-47fc-9516-62fb558c0744",
+      "name": "Get Document Metadata",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "7AZZZ4zr4PepbAtv",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "Chatting",
+        "operation": "Send Text",
+        "session": "={{ $('WAHA Trigger').item.json.session }}",
+        "chatId": "={{ $('WAHA Trigger').item.json.payload.from }}",
+        "text": "={{ $json.output }}",
+        "requestOptions": {}
+      },
+      "type": "@devlikeapro/n8n-nodes-waha.WAHA",
+      "typeVersion": 202502,
+      "position": [
+        1376,
+        -416
+      ],
+      "id": "5f69ae03-03f5-4852-9a81-8dd2c522f0e3",
+      "name": "Send Response",
+      "credentials": {
+        "wahaApi": {
+          "id": "xJuijWLPlgo0YEFu",
+          "name": "WAHA account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 2 * * *"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -848,
+        960
+      ],
+      "id": "eaf52955-6bcc-435c-bb9a-a800112f4055",
+      "name": "Daily Sync (2 AM)"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1dmgBPr9unVa853tyTzsRQSk-i1Ps_i4WMN3ZSZhSWdY",
+          "mode": "list",
+          "cachedResultName": "pake sheet 2",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1dmgBPr9unVa853tyTzsRQSk-i1Ps_i4WMN3ZSZhSWdY/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 741944812,
+          "mode": "list",
+          "cachedResultName": "Sheet22",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1dmgBPr9unVa853tyTzsRQSk-i1Ps_i4WMN3ZSZhSWdY/edit#gid=741944812"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.3,
+      "position": [
+        -464,
+        960
+      ],
+      "id": "8da9ba1a-cbac-439a-9162-ae464de4fc90",
+      "name": "Read Document List",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "7AZZZ4zr4PepbAtv",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Prepare JSON payload for Gemini API with binary PDF data\nconst items = $input.all();\nconst output = [];\n\nfor (let i = 0; i < items.length; i++) {\n  const item = items[i];\n  \n  try {\n    // FIX: Gunakan helper n8n untuk mengambil data binary yang sebenarnya\n    // dan konversi manual ke Base64\n    const binaryDataBuffer = await this.helpers.getBinaryDataBuffer(i, 'data');\n    const pdfBase64 = binaryDataBuffer.toString('base64');\n    \n    // Get metadata for context\n    const docName = item.json['Nama Dokumen'] || 'Unknown';\n    const docCode = item.json['Kode Dokumen'] || '-';\n    \n    // Prepare Gemini API request body\n    const requestBody = {\n      contents: [{\n        parts: [\n          {\n            text: `Extract all text from this PDF document (${docName}). Return ONLY the extracted text without any preamble, explanation, or markdown formatting. If the PDF contains tables, preserve their structure using plain text formatting.`\n          },\n          {\n            inline_data: {\n              mime_type: \"application/pdf\",\n              data: pdfBase64\n            }\n          }\n        ]\n      }],\n      generationConfig: {\n        temperature: 0.1,\n        maxOutputTokens: 8000\n      }\n    };\n    \n    output.push({\n      json: {\n        ...item.json,\n        gemini_payload: requestBody\n      },\n      binary: item.binary\n    });\n    \n  } catch (error) {\n    console.error(`Error processing file ${i}:`, error);\n    // Lanjut ke item berikutnya jika ada error pada satu file\n    continue;\n  }\n}\n\nreturn output;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        336,
+        960
+      ],
+      "id": "5e8aec46-55cc-42e6-8253-766ee412b871",
+      "name": "Prepare Gemini Payload"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=AIzaSyA3B9QQ_76xKayB3naUPz8iijjjlVBsucQ",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ $json.gemini_payload }}",
+        "options": {
+          "timeout": 120000
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        768,
+        960
+      ],
+      "id": "989e27bc-7f7a-4e65-9937-9839c020289a",
+      "name": "Gemini Flash OCR"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst output = [];\n\nconsole.log(`🚀 START: Menerima ${items.length} data.`);\n\nfunction chunkText(text, chunkSize = 800, overlap = 150) {\n  const chunks = [];\n  let start = 0;\n  while (start < text.length) {\n    const end = Math.min(start + chunkSize, text.length);\n    chunks.push(text.slice(start, end));\n    start = end - overlap;\n    if (start >= text.length - overlap) break;\n  }\n  return chunks;\n}\n\nfor (const item of items) {\n  \n  // [DEBUGGING PENTING] \n  // Cek Console > tab Console di browser lo. \n  // Liat bagian ini buat tau nama kolom yang ASLI masuk itu apa.\n  console.log('🔍 KEYS CHECK (Isi kolom yang terbaca):', Object.keys(item.json));\n\n  // --- BAGIAN INI YANG HARUS DISESUAIKAN SAMA HASIL LOG DI ATAS ---\n  // Pastikan string di dalam ['...'] SAMA PERSIS dengan hasil log 'KEYS CHECK'\n  const metadata = {\n    // Coba variasi umum kalau Tabel SPS lo beda format dikit\n    nama_dokumen: item.json['Nama Dokumen'] || item.json['nama_dokumen'] || item.json['Judul'] || 'Tanpa Judul',\n    kode_dokumen: item.json['Kode Dokumen'] || item.json['kode_dokumen'] || item.json['No'] || '-',\n    penanggung_jawab: item.json['Penanggung Jawab'] || '-',\n    pendukung: item.json['Pendukung'] || '-',\n    link_drive: item.json['Link Drive (Real PDF)'] || ''\n  };\n  // -----------------------------------------------------------------\n\n  let rawText = '';\n  try {\n    if (item.json.candidates && item.json.candidates[0]?.content?.parts?.[0]?.text) {\n      rawText = item.json.candidates[0].content.parts[0].text;\n    } else if (item.json.text) {\n      rawText = item.json.text;\n    }\n  } catch (e) {\n    console.error(`❌ ERROR: Gagal ekstrak teks`, e);\n    continue;\n  }\n\n  const cleanText = rawText.replace(/\\r\\n/g, '\\n').replace(/\\s+/g, ' ').trim();\n\n  if (!cleanText || cleanText.length < 50) {\n    console.log(`⚠️ SKIP: [${metadata.nama_dokumen}] - Teks kureng.`);\n    continue;\n  }\n\n  const chunks = chunkText(cleanText, 800, 150);\n\n  chunks.forEach((chunk, index) => {\n    // Format output dipercantik biar rapi\n    const enrichedText = `DOKUMEN: ${metadata.nama_dokumen}\nKODE: ${metadata.kode_dokumen}\nPENANGGUNG JAWAB: ${metadata.penanggung_jawab}\nPENDUKUNG: ${metadata.pendukung}\n\n[KONTEN - Bagian ${index + 1}/${chunks.length}]\n${chunk}`;\n\n    output.push({\n      json: {\n        text: items,\n        metadata: {\n          ...metadata,\n          chunk_index: index,\n          total_chunks: chunks.length\n        }\n      }\n    });\n  });\n}\n\nreturn output;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1216,
+        960
+      ],
+      "id": "6fcca8d4-1c38-4c21-a974-1195bbed9951",
+      "name": "Smart Chunking"
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "tableName": {
+          "__rl": true,
+          "value": "documents",
+          "mode": "list"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
+      "typeVersion": 1.3,
+      "position": [
+        1552,
+        960
+      ],
+      "id": "b1178401-22a4-477b-ac61-5cad73bd6fa8",
+      "name": "Insert to Vector DB",
+      "credentials": {
+        "supabaseApi": {
+          "id": "pdzBzCjR0ZPn37hE",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "dataType": "string",
+        "options": {
+          "metadata": {
+            "metadataValues": [
+              {
+                "name": "source",
+                "value": "={{ $json.metadata.nama_dokumen }}"
+              },
+              {
+                "name": "code",
+                "value": "={{ $json.metadata.kode_dokumen }}"
+              },
+              {
+                "name": "pic",
+                "value": "={{ $json.metadata.penanggung_jawab }}"
+              },
+              {
+                "name": "link",
+                "value": "={{ $json.metadata.link_drive }}"
+              }
+            ]
+          }
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "typeVersion": 1.1,
+      "position": [
+        1696,
+        1216
+      ],
+      "id": "21c2fa22-e711-4ba2-a590-9d6425ca261e",
+      "name": "Document Loader"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.embeddingsGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        1424,
+        1232
+      ],
+      "id": "a2680750-aa26-414c-ad08-73ab92fe873f",
+      "name": "Embeddings (Sync)",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "wY8EXRCFDqOuWUtG",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {
+          "temperature": 0.3
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        720,
+        -48
+      ],
+      "id": "590ddc86-dd55-44be-a468-308e759e00d3",
+      "name": "Gemini 2.5 Flash",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "wY8EXRCFDqOuWUtG",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ $json[\"Link Drive (Real PDF)\"].split('/d/')[1].split('/')[0] }}",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        -80,
+        960
+      ],
+      "id": "14eb8b51-de65-4971-8acf-98f448f131c5",
+      "name": "Download PDF from Drive",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "emyx5SwbIvZVQYI8",
+          "name": "Google Drive account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "WAHA Trigger": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Is LID?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is LID?": {
+      "main": [
+        [
+          {
+            "node": "Convert LID",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Normalize Number",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert LID": {
+      "main": [
+        [
+          {
+            "node": "Normalize Number",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalize Number": {
+      "main": [
+        [
+          {
+            "node": "Check User Access",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check User Access": {
+      "main": [
+        [
+          {
+            "node": "User Authorized?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "User Authorized?": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send Unauthorized Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Send Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supabase Vector Store": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings Google Gemini": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Supabase Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reranker Cohere": {
+      "ai_reranker": [
+        [
+          {
+            "node": "Supabase Vector Store",
+            "type": "ai_reranker",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Chat Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Document Metadata": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Daily Sync (2 AM)": {
+      "main": [
+        [
+          {
+            "node": "Read Document List",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read Document List": {
+      "main": [
+        [
+          {
+            "node": "Download PDF from Drive",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gemini Flash OCR": {
+      "main": [
+        [
+          {
+            "node": "Smart Chunking",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Smart Chunking": {
+      "main": [
+        [
+          {
+            "node": "Insert to Vector DB",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Document Loader": {
+      "ai_document": [
+        [
+          {
+            "node": "Insert to Vector DB",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings (Sync)": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Insert to Vector DB",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Gemini Payload": {
+      "main": [
+        [
+          {
+            "node": "Gemini Flash OCR",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gemini 2.5 Flash": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Unauthorized Message": {
+      "main": [
+        []
+      ]
+    },
+    "Download PDF from Drive": {
+      "main": [
+        [
+          {
+            "node": "Prepare Gemini Payload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "versionId": "5cb66432-db93-4409-beb2-1abe2d1bb85c",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "1cb7dfa9b4c6a9534b85b07efcb665a343c358b7d9751d237e44e3e1e858efe3"
+  },
+  "id": "pjgLUKz2u78XGKENJrWTa",
+  "tags": []
+}
