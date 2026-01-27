@@ -1,5 +1,5 @@
 # chatbot-N8N
-Dokumen ini mencakup **Alur Kerja (Logic)**, **Prasyarat (Credentials)**, **Struktur Database**, dan **Panduan Instalasi**. Kamu bisa langsung copy-paste ini ke repository GitHub atau dokumentasi internalmu.
+Dokumen ini mencakup **Alur Kerja (Logic)**, **Prasyarat (Credentials)**, **Struktur Database**, dan **Panduan Instalasi**.
 
 ---
 
@@ -120,15 +120,42 @@ $$;
 * Buka n8n.
 * Klik menu "Workflows" > "Import".
 * Upload file `CHATBOT N8N FILE READER.json`.
+  **WORKFLOW 1**
 <img width="1419" height="235" alt="image" src="https://github.com/user-attachments/assets/c3eaa1ce-89c2-4a6d-b423-b17c5333993f" />
-
+  **WORKFLOW 2**
 <img width="1471" height="658" alt="image" src="https://github.com/user-attachments/assets/ca57030f-4ead-4987-8e24-6e1928e177b9" />
 
 
 2. **Setup Credentials**:
 * Isi semua credential yang "merah" (hilang) sesuai daftar di bagian Prasyarat.
 * Pastikan API Key Google Gemini memiliki akses ke model `gemini-pro` dan `gemini-2.0-flash-exp`.
+* **WORKFLOW 1**
+  * Read Document List
+    <img width="1705" height="933" alt="image" src="https://github.com/user-attachments/assets/2a30516a-17ab-4e97-ba76-de424b93c8f5" />
+    
 
+  * Download PDF From Drive
+  * Prepare Gemini Payload
+  * Gemini Flash OCR
+  * Smart Chunking
+  * Insert to Vector DB
+  * Embedding (Sync)
+  * Document Loader
+* **WORKFLOW 2**
+  * WAHA Trigger
+  * is LID?
+  * Convert LID
+  * Normalize Number
+  * Check User Access
+  * User Authorized
+  * Send Authorized Message
+  * AI Agent
+  * Gemini 2.5 Flash
+  * Chat Memory
+  * Get Document Metadata
+  * Supabase Vector Store
+  * Embeddings Google Gemini
+  * Reranker Cohere
 
 3. **Konfigurasi Node Variables**:
 * **WAHA Trigger**: Pastikan `webhookId` unik dan sesuai dengan setting di dashboard WAHA Anda.
