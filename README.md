@@ -30,6 +30,8 @@ Agar workflow dapat berjalan, Anda perlu mendaftarkan kredensial berikut pada me
 Workflow ini terdiri dari dua proses utama yang berjalan secara terpisah namun saling terintegrasi:
 
 ### 1. Alur Interaksi Pengguna (User Interaction Flow)
+<img width="1228" height="432" alt="image" src="https://github.com/user-attachments/assets/994b0992-e0ee-43cb-9825-d2ca0ba2ef28" />
+
 Alur ini menangani pesan masuk dari pengguna, validasi akses, dan pembuatan respons jawaban.
 
 * **Pemicu (Trigger)**: Node `WAHA Trigger` mendeteksi pesan masuk.
@@ -48,6 +50,8 @@ Alur ini menangani pesan masuk dari pengguna, validasi akses, dan pembuatan resp
 * **Output**: Jawaban yang dihasilkan dikirim kembali ke pengguna melalui node `Send Response` (WAHA).
 
 ### 2. Alur Sinkronisasi Dokumen (Document Sync Flow)
+<img width="1165" height="207" alt="image" src="https://github.com/user-attachments/assets/f26545c9-094e-459b-9b2d-d3b46dcd3c76" />
+
 Alur ini berjalan secara otomatis setiap hari pada pukul 02:00 pagi untuk memperbarui database pengetahuan.
 
 * **Pemicu (Trigger)**: `Daily Sync (2 AM)` menggunakan *cron expression*.
