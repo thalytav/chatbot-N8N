@@ -1,5 +1,3 @@
-Berikut adalah draf berkas `README.md` yang disusun menggunakan bahasa formal dan profesional, tanpa menggunakan emotikon, sesuai dengan spesifikasi alur kerja (workflow) n8n yang Anda lampirkan.
-
 ---
 
 # Dokumentasi Teknis: n8n WhatsApp PDF Reader (RAG System)
