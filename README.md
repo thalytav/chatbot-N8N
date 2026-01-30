@@ -120,6 +120,8 @@ Setelah mengimpor workflow ini, Anda wajib menyesuaikan beberapa parameter berik
 * **Keamanan Data**: Pastikan Google Sheets yang berisi daftar pengguna (whitelist) tidak dibagikan ke publik (Public Access) dan hanya dapat diakses oleh *Service Account* yang digunakan di n8n.
 * **Contoh Kolom Spreadsheet**:
      * NO. WA
-         |NAMA	|WHATSAPP	|DIVISI|
+         | NAMA | WHATSAPP | DIVISI |
+         | :--- | :--- | :--- |
      * Dokumen
-          |No	|Nama Dokumen	|Kode Dokumen	|Link Drive (Real PDF)	|Penanggung Jawab	Pendukung |
+         | No | Nama Dokumen | Kode Dokumen	Link Drive (Real PDF) | Penanggung Jawab | Pendukung |
+         | :--- | :--- | :--- |
