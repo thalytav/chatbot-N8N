@@ -124,4 +124,4 @@ Setelah mengimpor workflow ini, Anda wajib menyesuaikan beberapa parameter berik
          | :--- | :--- | :--- |
      * Dokumen
          | No | Nama Dokumen | Kode Dokumen	Link Drive (Real PDF) | Penanggung Jawab | Pendukung |
-         | :--- | :--- | :--- |
+         | :--- | :--- | :--- | :--- | :--- | 
