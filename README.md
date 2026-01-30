@@ -118,3 +118,8 @@ Setelah mengimpor workflow ini, Anda wajib menyesuaikan beberapa parameter berik
 ## Catatan Penting
 * **Biaya API**: Penggunaan model Gemini, Cohere, dan layanan Google Cloud dapat dikenakan biaya tergantung pada volume penggunaan. Pantau kuota API Anda secara berkala.
 * **Keamanan Data**: Pastikan Google Sheets yang berisi daftar pengguna (whitelist) tidak dibagikan ke publik (Public Access) dan hanya dapat diakses oleh *Service Account* yang digunakan di n8n.
+* **Contoh Kolom Spreadsheet**:
+     * NO. WA
+         |NAMA	|WHATSAPP	|DIVISI|
+     * Dokumen
+          |No	|Nama Dokumen	|Kode Dokumen	|Link Drive (Real PDF)	|Penanggung Jawab	Pendukung |
