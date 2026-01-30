@@ -86,6 +86,20 @@ Setelah mengimpor workflow ini, Anda wajib menyesuaikan beberapa parameter berik
       <img width="1242" height="804" alt="image" src="https://github.com/user-attachments/assets/8aac0883-d90a-4bed-9897-4b3d0b4bec9d" />
       <img width="1241" height="805" alt="image" src="https://github.com/user-attachments/assets/73694403-4638-406e-988e-dd47ff03b8a5" />
 
+## Kendala
+* **Limit google api key (rpm/rpd)**:
+  <img width="1460" height="1009" alt="image" src="https://github.com/user-attachments/assets/278891dc-f4a2-4e01-bed5-b2bad2542a9a" />
+   Solusi: Aktifkan billing (berbayar) / jangan gunakan terlalu sering agar tidak mencapai limit (free)
+* **Eror WAHA tidak merespon**: 
+  <img width="1726" height="947" alt="Screenshot 2026-01-14 224031" src="https://github.com/user-attachments/assets/6eb6ab4d-de44-4596-a323-d8532ac16e4f" />
+   Solusi: Tunggu update developer / tanya gemini
+* **ngrok tidak berjalan di internet INKA**:
+  <img width="1391" height="1113" alt="Screenshot 2026-01-20 080154" src="https://github.com/user-attachments/assets/129bdf9b-2e95-4c6d-84d9-61a903563854" />
+   Solusi: Gunakan hotspot pribadi
+* **Kalau filenya banyak dan besar, ngrok terkena eror bandwidth**:
+  <img width="1090" height="647" alt="Screenshot 2026-01-24 213546" src="https://github.com/user-attachments/assets/ba43183f-92de-404f-b1b6-cd7c06748228" />
+   Solusi: Gunakan akun ngrok berbayar / tunggu bulan depan (free)
+  
 ## Catatan Penting
 * **Biaya API**: Penggunaan model Gemini, Cohere, dan layanan Google Cloud dapat dikenakan biaya tergantung pada volume penggunaan. Pantau kuota API Anda secara berkala.
 * **Keamanan Data**: Pastikan Google Sheets yang berisi daftar pengguna (whitelist) tidak dibagikan ke publik (Public Access) dan hanya dapat diakses oleh *Service Account* yang digunakan di n8n.
