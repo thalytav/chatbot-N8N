@@ -76,6 +76,15 @@ Setelah mengimpor workflow ini, Anda wajib menyesuaikan beberapa parameter berik
     * Sesuaikan instruksi pada bagian `System Message` di dalam node AI Agent untuk mengubah gaya bahasa atau aturan bisnis chatbot sesuai kebijakan perusahaan.
 3.  **Database Vector (Node: Supabase Vector Store)**:
     * Pastikan tabel `documents` telah dibuat di Supabase dan memiliki ekstensi `pgvector` yang aktif.
+4.  **WAHA DASHBOARD**:
+    * Setting container WAHA di Docker menjadi seperti di bawah ini:
+      <img width="501" height="496" alt="image" src="https://github.com/user-attachments/assets/d4b630e0-5091-4fc2-80ac-48693f2c4633" />
+      <img width="653" height="194" alt="image" src="https://github.com/user-attachments/assets/9c47c298-758f-4b15-9c15-7d74c2a9ac3f" />
+    * Masukkan API KEY KE WAHA DASHBOARD dan Kredential Node Convert LID, Send Response, dan Send Unauthorized Message
+      <img width="671" height="820" alt="image" src="https://github.com/user-attachments/assets/7c334e13-c04d-4127-882e-673e5e8a1837" />
+      <img width="1715" height="934" alt="image" src="https://github.com/user-attachments/assets/3a58214a-795a-42d3-b0e8-1e24f3049c0c" />
+      <img width="1242" height="804" alt="image" src="https://github.com/user-attachments/assets/8aac0883-d90a-4bed-9897-4b3d0b4bec9d" />
+      <img width="1241" height="805" alt="image" src="https://github.com/user-attachments/assets/73694403-4638-406e-988e-dd47ff03b8a5" />
 
 ## Catatan Penting
 * **Biaya API**: Penggunaan model Gemini, Cohere, dan layanan Google Cloud dapat dikenakan biaya tergantung pada volume penggunaan. Pantau kuota API Anda secara berkala.
