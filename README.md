@@ -102,10 +102,16 @@ Setelah mengimpor workflow ini, Anda wajib menyesuaikan beberapa parameter berik
   
 ## Contoh pertanyaan yang bisa dijawab chatbot
 * **Meminta link dokumen**:
-  <img width="544" height="348" alt="image" src="https://github.com/user-attachments/assets/fe9920c4-9faf-46ee-8cd2-2ca6025bc14c" />
+  <br><img width="544" height="348" alt="image" src="https://github.com/user-attachments/assets/fe9920c4-9faf-46ee-8cd2-2ca6025bc14c" />
+* **Meminta dokumen terkait**:
+  <br><img width="545" height="448" alt="image" src="https://github.com/user-attachments/assets/e326e6eb-88b9-4fed-946c-2824ea98ec12" />
+* **Meminta PM Divisi tertentu**:
+  <br><img width="760" height="381" alt="image" src="https://github.com/user-attachments/assets/2d8ff78b-c2a9-4375-9a95-4770fa5eb989" />
+* **Meminta tujuan, maksud, ruang lingkup dokumen**:
+  <br><img width="758" height="353" alt="image" src="https://github.com/user-attachments/assets/451aa3c3-efcf-4f9e-a3f6-9e5f308c556a" />
+* **Meminta alur proses, karakteristik proses PM**:
+  <br><img width="758" height="461" alt="image" src="https://github.com/user-attachments/assets/4074690e-b916-40d9-9a9a-94db232beee1" />
 
-
-  
 ## Catatan Penting
 * **Biaya API**: Penggunaan model Gemini, Cohere, dan layanan Google Cloud dapat dikenakan biaya tergantung pada volume penggunaan. Pantau kuota API Anda secara berkala.
 * **Keamanan Data**: Pastikan Google Sheets yang berisi daftar pengguna (whitelist) tidak dibagikan ke publik (Public Access) dan hanya dapat diakses oleh *Service Account* yang digunakan di n8n.
