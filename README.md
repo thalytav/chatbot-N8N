@@ -100,6 +100,12 @@ Setelah mengimpor workflow ini, Anda wajib menyesuaikan beberapa parameter berik
   <img width="1090" height="647" alt="Screenshot 2026-01-24 213546" src="https://github.com/user-attachments/assets/ba43183f-92de-404f-b1b6-cd7c06748228" />
    Solusi: Gunakan akun ngrok berbayar / tunggu bulan depan (free)
   
+## Contoh pertanyaan yang bisa dijawab chatbot
+* **Meminta link dokumen**:
+  <img width="544" height="348" alt="image" src="https://github.com/user-attachments/assets/fe9920c4-9faf-46ee-8cd2-2ca6025bc14c" />
+
+
+  
 ## Catatan Penting
 * **Biaya API**: Penggunaan model Gemini, Cohere, dan layanan Google Cloud dapat dikenakan biaya tergantung pada volume penggunaan. Pantau kuota API Anda secara berkala.
 * **Keamanan Data**: Pastikan Google Sheets yang berisi daftar pengguna (whitelist) tidak dibagikan ke publik (Public Access) dan hanya dapat diakses oleh *Service Account* yang digunakan di n8n.
