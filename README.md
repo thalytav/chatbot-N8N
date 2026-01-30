@@ -16,7 +16,8 @@ Agar workflow dapat berjalan, Anda perlu mendaftarkan kredensial berikut pada me
 
 | Nama Kredensial | Tipe Kredensial di n8n | Keterangan |
 | :--- | :--- | :--- |
-| **WAHA account** | `wahaApi` | Masukkan URL instance WAHA dan Secret Key Anda. |
+| **WAHA account** | `wahaApi` | Masukkan URL instance WAHA dan Secret Key Anda. <img width="623" height="404" alt="image" src="https://github.com/user-attachments/assets/91758c15-da09-4934-90b5-44efe545aa0b" />
+ |
 | **Google Sheets account** | `googleSheetsOAuth2Api` | Menggunakan OAuth2 Client ID dan Secret dari Google Cloud Console. |
 | **Google Drive account** | `googleDriveOAuth2Api` | Menggunakan OAuth2 Client ID dan Secret dengan cakupan (scope) akses Google Drive. |
 | **Google Gemini(PaLM) Api account** | `googlePalmApi` | API Key dari Google AI Studio untuk model Gemini. |
