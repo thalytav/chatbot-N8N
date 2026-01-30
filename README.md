@@ -111,6 +111,9 @@ Setelah mengimpor workflow ini, Anda wajib menyesuaikan beberapa parameter berik
   <br><img width="758" height="353" alt="image" src="https://github.com/user-attachments/assets/451aa3c3-efcf-4f9e-a3f6-9e5f308c556a" />
 * **Meminta alur proses, karakteristik proses PM**:
   <br><img width="758" height="461" alt="image" src="https://github.com/user-attachments/assets/4074690e-b916-40d9-9a9a-94db232beee1" />
+* **Menjawab PM sudah revisi ke berapa**:
+  <br><img width="761" height="307" alt="image" src="https://github.com/user-attachments/assets/82834815-c83d-48a5-9cae-d0a03eeaec5a" />
+
 
 ## Catatan Penting
 * **Biaya API**: Penggunaan model Gemini, Cohere, dan layanan Google Cloud dapat dikenakan biaya tergantung pada volume penggunaan. Pantau kuota API Anda secara berkala.
