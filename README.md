@@ -16,14 +16,14 @@ Agar workflow dapat berjalan, Anda perlu mendaftarkan kredensial berikut pada me
 
 | Nama Kredensial | Tipe Kredensial di n8n | Keterangan |
 | :--- | :--- | :--- |
-| **WAHA account** | `wahaApi` | Masukkan URL instance WAHA dan Secret Key Anda.|
-| **Google Sheets account** | `googleSheetsOAuth2Api` | Menggunakan OAuth2 Client ID dan Secret dari Google Cloud Console.  <img width="623" height="404" alt="image" src="https://github.com/user-attachments/assets/91758c15-da09-4934-90b5-44efe545aa0b" /> |
-| **Google Drive account** | `googleDriveOAuth2Api` | Menggunakan OAuth2 Client ID dan Secret dengan cakupan (scope) akses Google Drive. |
-| **Google Gemini(PaLM) Api account** | `googlePalmApi` | API Key dari Google AI Studio untuk model Gemini. |
-| **Supabase account** | `supabaseApi` | URL Proyek Supabase dan Service Role Key. |
-| **CohereApi account** | `cohereApi` | API Key dari platform Cohere. |
-| **Postgres account** | `postgres` | Detail koneksi database PostgreSQL (Host, User, Password, Database). |
-| **Header Auth account** | `httpHeaderAuth` | (Opsional) Digunakan jika API konversi LID memerlukan autentikasi header tertentu. |
+| **WAHA account** | `wahaApi` | Masukkan URL instance WAHA dan Secret Key Anda. <img width="624" height="401" alt="image" src="https://github.com/user-attachments/assets/515d2356-a9d5-4f47-9c41-a031635ce26d" />|
+| **Google Sheets account** | `googleSheetsOAuth2Api` | Menggunakan OAuth2 Client ID dan Secret dari Google Cloud Console (jangan lupa sign in with Google).  <img width="623" height="404" alt="image" src="https://github.com/user-attachments/assets/91758c15-da09-4934-90b5-44efe545aa0b" /> |
+| **Google Drive account** | `googleDriveOAuth2Api` | Menggunakan OAuth2 Client ID dan Secret dengan cakupan (scope) akses Google Drive (jangan lupa sign in with Google). <img width="621" height="403" alt="image" src="https://github.com/user-attachments/assets/7525eabe-0fe2-47b0-a2a8-e010fc30dfe2" />|
+| **Google Gemini(PaLM) Api account** | `googlePalmApi` | API Key dari Google AI Studio untuk model Gemini (jangan lupa sign in with Google). <img width="621" height="403" alt="image" src="https://github.com/user-attachments/assets/fe0f4a6d-de4f-4ca6-9039-703fd3b55189" />|
+| **Supabase account** | `supabaseApi` | URL Proyek Supabase dan Service Role Key. Pergi ke Supabase untuk melihat URL Project dan Service Role Secret <img width="623" height="410" alt="image" src="https://github.com/user-attachments/assets/4ddda1ca-b998-45c4-a306-44c4774fc984" /> <img width="1796" height="950" alt="image" src="https://github.com/user-attachments/assets/41a597a7-4f42-4ff9-a78e-b750c6aab2bf" /> <img width="893" height="473" alt="image" src="https://github.com/user-attachments/assets/97db22c2-864f-45ee-88cf-2a575e1d0289" />|
+| **CohereApi account** | `cohereApi` | API Key dari platform Cohere. <img width="1247" height="803" alt="image" src="https://github.com/user-attachments/assets/3dbe439b-e4ec-4543-b6c4-ec3586c26354" /> <img width="894" height="350" alt="image" src="https://github.com/user-attachments/assets/3cf75c45-7b6d-4895-b07b-2470593f3aaa" />|
+| **Postgres account** | `postgres` | Detail koneksi database PostgreSQL (Host, User, Password, Database). Pilih Connect di Table Editor, ganti Method jadi Transaction Poooler. <img width="625" height="404" alt="image" src="https://github.com/user-attachments/assets/5039034a-7db7-465c-a116-87d820005969" /> <img width="1524" height="898" alt="image" src="https://github.com/user-attachments/assets/acd0aebd-7fd4-4f14-a021-d6b4c4e0c37a" /> |
+| **Header Auth account** | `httpHeaderAuth` | (Opsional) Digunakan jika API konversi LID memerlukan autentikasi header tertentu (untuk convert LID). <img width="1243" height="799" alt="image" src="https://github.com/user-attachments/assets/231824e7-4052-45de-a233-9d2b0bf112e1" />|
 
 ## Arsitektur Workflow
 
